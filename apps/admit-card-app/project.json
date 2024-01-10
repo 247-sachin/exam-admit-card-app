@@ -1,0 +1,67 @@
+{
+  "name": "admit-card-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/admit-card-app/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/admit-card-app",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "apps/admit-card-app/src/main.ts",
+        "tsConfig": "apps/admit-card-app/tsconfig.app.json",
+        "assets": ["apps/admit-card-app/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "admit-card-app:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "admit-card-app:build:development"
+        },
+        "production": {
+          "buildTarget": "admit-card-app:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/admit-card-app/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

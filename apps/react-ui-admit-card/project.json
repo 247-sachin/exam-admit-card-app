@@ -1,0 +1,79 @@
+{
+  "name": "react-ui-admit-card",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/react-ui-admit-card/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/react-ui-admit-card",
+        "index": "apps/react-ui-admit-card/src/index.html",
+        "baseHref": "/",
+        "main": "apps/react-ui-admit-card/src/main.tsx",
+        "tsConfig": "apps/react-ui-admit-card/tsconfig.app.json",
+        "assets": [
+          "apps/react-ui-admit-card/src/favicon.ico",
+          "apps/react-ui-admit-card/src/assets"
+        ],
+        "styles": ["apps/react-ui-admit-card/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "apps/react-ui-admit-card/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/react-ui-admit-card/src/environments/environment.ts",
+              "with": "apps/react-ui-admit-card/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "react-ui-admit-card:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "react-ui-admit-card:build:development"
+        },
+        "production": {
+          "buildTarget": "react-ui-admit-card:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/react-ui-admit-card/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

@@ -11,4 +11,6 @@ import { FileUploadComponent } from './file-upload/file-upload.component'
 })
 export class AppComponent {
   title = 'ng-ui-admit-card';
+
+  
 }

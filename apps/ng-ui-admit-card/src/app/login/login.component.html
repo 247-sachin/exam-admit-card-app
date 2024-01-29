@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-between mb-3 mt-3">
+    <div>
+        <h3>Download Admit Card</h3>
+        <form class="p-2" #inputForm="ngForm">
+        <div class="mb-3 mt-3">
+            <label for="Seat Number">Seat Number:</label>
+            <input type="text" maxlength="15" minlength="7" 
+                [(ngModel)]="seat_number"
+                class="form-control" id="seat_number" 
+                placeholder="Enter Seat Number" 
+                name="Seat Number">
+        </div>
+        <div class="mb-3">
+            <label for="pwd">Date of Birth:</label>
+            <input type="text" class="form-control"
+                [(ngModel)]="dob"
+                id="dob" 
+                placeholder="Enter date of birth (dd/mm/yyyy)" 
+                name="dob">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="fetchStudentAdmitCard()">Submit</button>
+        </form>
+    </div>
+    <div class=" admit-card" >
+        <admit-card-app-admit-card></admit-card-app-admit-card>
+    </div>
+  </div>

@@ -9,7 +9,7 @@ let server: Handler;
 async function bootstrap() {
   Logger.log(nodeEnv);
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
+  const globalPrefix = '';
   app.setGlobalPrefix(globalPrefix);
   app.enableCors();
   if(nodeEnv === 'local'){

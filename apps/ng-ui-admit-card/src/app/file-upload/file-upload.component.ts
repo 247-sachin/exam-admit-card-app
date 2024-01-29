@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import  * as XLSX  from 'xlsx';
+import { ApiService } from '../api-service/api.service';
 
 @Component({
   selector: 'admit-card-app-file-upload',
@@ -11,7 +12,9 @@ import  * as XLSX  from 'xlsx';
 })
 export class FileUploadComponent {
   fileToUpload:any;
+  constructor(private apiService: ApiService){
 
+  }
   fileChange(event:any){
     if(event.target.files.length != -1) this.fileToUpload = event.target.files[0];
   }
@@ -52,4 +55,7 @@ export class FileUploadComponent {
     console.log("date_info", date_info);
     return  `${date_info.getDate()}/${date_info.getMonth() +1}/${date_info.getFullYear()}`;
  }
+
+ 
+
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from  '@angular/common/http';  
+import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType, HttpHeaders } from  '@angular/common/http';  
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +7,15 @@ import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from  '@angul
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-  private apiUrl = '';
+  private apiUrl = 'https://fzwmeedie3.execute-api.ap-south-1.amazonaws.com/test/api/';
   uploadAdmitCardData(data:any){
     return this.http.post(this.apiUrl,data)
+  }
+
+  fetchStudentIdCard(studentDetails:any){
+    const headers  = {
+      "X-API-KEY" : "YATSB59eFU4PbR80TpnXs4k78uGDVEDS1sB5YSXZ"
+    }
+    return this.http.post(this.apiUrl+"student-profile", studentDetails, {headers: headers})
   }
 }

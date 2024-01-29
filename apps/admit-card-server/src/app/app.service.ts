@@ -16,9 +16,6 @@ export class AppService {
    */
   async uploadExcel(excelArray:admitcard[]):Promise<any> {
     return new Promise(async (resolve, reject)=>{
-      console.log("Connecting to db");
-      await dbConnect.connect();
-      console.log("Connected Successfully");
       const bulkinsertions = this.stringUtility(excelArray);
       console.log("bulkinsertions", bulkinsertions);
       console.log(`INSERT INTO admit_card_user_data 
@@ -30,14 +27,12 @@ export class AppService {
       (err, res)=>{
         if(err){
           console.log(err);
-          dbConnect.end();
           reject(err);
         }
         else{
           console.log("Database response:");
           console.log(res);
           dbConnect.end();
-          console.log("dbConnect ended");
           resolve(res);
         }
       })
@@ -45,13 +40,11 @@ export class AppService {
   }
 
   async getAdmitCard(studentInfo: studentinfo){
-    Logger.log("Connecting DB");
-    await dbConnect.connect();
 
     return new Promise(async (resolve, reject)=>{
-      console.log("Connecting to db");
-      await dbConnect.connect();
-      console.log("Connected Successfully");
+      // console.log("Connecting to db");
+      // await dbConnect.connect();
+      // console.log("Connected Successfully");
       const dobarray = studentInfo.dob.split('/');
       const adding20 =  '20'+ dobarray[2];
       dobarray[2] = adding20;
@@ -60,14 +53,14 @@ export class AppService {
       dbConnect.query<admitcard[]>(`select * from admit_card_user_data where seat_number = '${studentInfo.seat_number}' and (dob = '${studentInfo.dob}' or dob = '${fullDOB}')`,(err, res)=>{
         if(err){
           console.log(err);
-          dbConnect.end();
+          // dbConnect.end();
           reject(err);
         }
         else{
           console.log("Database response:");
           console.log(res);
-          dbConnect.end();
-          console.log("dbConnect ended");
+          // dbConnect.end();
+          // console.log("dbConnect ended");
           resolve(res);
         }
       })

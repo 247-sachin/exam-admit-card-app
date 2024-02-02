@@ -7,9 +7,9 @@ import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType, HttpHeaders } 
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-  private apiUrl = 'https://fzwmeedie3.execute-api.ap-south-1.amazonaws.com/test/api/';
+  private apiUrl = 'http://localhost:3300/';//'https://fzwmeedie3.execute-api.ap-south-1.amazonaws.com/test/api/';
   uploadAdmitCardData(data:any){
-    return this.http.post(this.apiUrl,data)
+    return this.http.post(this.apiUrl+'admit-card-data-upload', data)
   }
 
   fetchStudentIdCard(studentDetails:any){

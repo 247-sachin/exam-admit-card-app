@@ -3,4 +3,59 @@
     margin: 10px;
     width: 700px;
     border: 1px solid blueviolet;
+    display: inline-block;
+}
+
+.logo img{
+    width: 100px;
+}
+
+.titleSection{
+    text-align: center;
+}
+
+.printHeader{
+    align-items: center;
+}
+
+.admit-card-table{
+    width: 100%;
+}
+
+.admit-card-table th, .admit-card-table td{
+    padding: 5px;
+}
+
+.photoAffix{
+    border: 1px solid #eee;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    color: #eee;
+    display: flex;
+    text-align: center;
+}
+
+.sigAffix{
+    border: 1px solid #eee;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    color: #eee;
+    display: flex;
+    text-align: center;
+}
+
+.exam-details{
+    width: 100%;
+    display: inline-block;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.photo-section{
+    width: 234px;
+    display: inline-block;
+    padding-left: 12px;
+    padding-right: 12px;
 }

@@ -1,5 +1,5 @@
-<div class="d-flex justify-content-between mb-3 mt-3">
-    <div>
+<div class="row mb-3 mt-3">
+    <div class="col-lg-4">
         <h3>Download Admit Card</h3>
         <form class="p-2" #inputForm="ngForm">
         <div class="mb-3 mt-3">
@@ -11,17 +11,132 @@
                 name="Seat Number">
         </div>
         <div class="mb-3">
-            <label for="pwd">Date of Birth:</label>
-            <input type="text" class="form-control"
+            <label for="dob_text">Date of Birth:</label>
+            <input type="text"  
+                [ngModel]="dob_text"
+                class="form-control" id="dob_text" 
+                placeholder="Date of Birth" disabled
+                name="dob_text">
+            <button>Open Calender > <input type="date" 
+                min="2000-01-02" 
+                max="{{maxDate}}"
+                style="width: 25px;
+                background: lightblue;
+                border-radius: 5px;
+                cursor: pointer"
+                placeholder="dd-MM-yyyy" 
                 [(ngModel)]="dob"
                 id="dob" 
-                placeholder="Enter date of birth (dd/mm/yyyy)" 
-                name="dob">
+                name="dob" (change)="changeDate()"></button>
         </div>
         <button type="submit" class="btn btn-primary" (click)="fetchStudentAdmitCard()">Submit</button>
         </form>
     </div>
-    <div class=" admit-card" >
-        <admit-card-app-admit-card></admit-card-app-admit-card>
+    <div class="col-lg-8" style="overflow-x: auto;">
+        <div *ngIf="showAdmitCard" class="admit-card" id="admitCard">
+            <div class="printSection">
+                <div class="d-flex justify-content-between printHeader">
+                    <div class="logo">
+                        <img src="/assets/runanubandh-logo.jpg" alt="" srcset="">
+                    </div>
+                    <div class="titleSection">
+                        <h4>ऋणानुबंध प्रज्ञाशोध परीक्षा (RTS) 2024</h4>
+                        <span>ऋणानुबंध प्रकाशन, तालुका भुदरगड, जिल्हा कोल्हापूर</span> 
+                        <h5>Exam Hall Ticket ({{student_data.standard?.trim()}})</h5>                       
+                    </div>
+                    <div class="scanner titleSection">
+                        <img src="/assets/runanubandh-scan-qr.jpg" alt="" srcset="">
+                    </div>
+                </div>
+                <hr>
+                <div class="admitCardData row">
+                    <!-- First Row -->
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            नाव: <b>{{student_data.student_name}}</b>
+                        </div>
+                        <div>
+                            
+                            परीक्षा क्रमांक : <b>{{student_data.seat_number}}</b>
+                        </div>
+                    </div>
+                    <!-- Second row  -->
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            माध्यम: मराठी
+                        </div>
+                        <div>
+                            परीक्षा केंद्र: <b>{{student_data.exam_center_name}}</b>
+                        </div>
+                        <div>
+                            परीक्षा केंद्र क्रमांक: {{student_data.exam_center_code}}
+                        </div>
+                    </div>
+                    <!-- Third Row School info -->
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            इयत्ता: {{student_data.standard}}
+                        </div>
+                        <div>
+                            शाळेचे नाव: <small>{{student_data.school_name}}</small>
+                        </div>
+                        <div>
+                            शाळा क्रमांक: {{student_data.school_id}}
+                        </div>
+                    </div>
+                    <!-- Half columns -->
+                    <div class="exam-details">
+                        <hr>
+                        <h5>Exam Date: {{student_data.exam_date | date:'fullDate':'d/M/yy'}}</h5>
+                        <hr>
+                        <table class="table-bordered admit-card-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Paper 1
+                                    </td>
+                                    <td>
+                                        {{student_data.exam_time_1}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span *ngIf="student_data.exam_time_2"></span> Paper 2
+                                    </td>
+                                    <td>
+                                        {{student_data.exam_time_2}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-between mt-2 p-2">
+                            <div>
+                                President,<br>
+                                Runanubandh Talent Search Exam
+                            </div>
+                            <div class="p-2 bg-info"><small>Signature</small></div>
+                        </div>
+                    </div>
+                    <!-- <div class="photo-section">
+                        <div class="p-3 mt-3 photoAffix">
+                            <span>Please affix your recent photo here</span>
+                        </div>
+                        <div class="sigAffix">
+                            <span>Signature</span>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div *ngIf="showLoader" class="loading">
+            <div class="spinner-border"></div>
+        </div>
+        <button *ngIf="showAdmitCard" class="btn btn-primary" (click)="convetToPDF()">Download</button>
     </div>
   </div>

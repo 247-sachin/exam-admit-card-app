@@ -43,6 +43,16 @@ export class FileUploadComponent {
           d["DATE OF BIRTH"] = this.ExcelDateToJSDate(d["DATE OF BIRTH"]);
         })
         console.log(data);
+        this.apiService.uploadAdmitCardData(data).subscribe((res:any)=>{
+          if( res.affectedRows && res.affectedRows > 0 ){
+            alert("Data uploaded successfully");
+            console.log(res)
+          }
+          else{
+            alert('Something went wrong, Please try again');
+            console.log(res);
+          }
+        })
       })
     }
   }

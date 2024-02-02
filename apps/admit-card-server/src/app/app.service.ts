@@ -19,10 +19,10 @@ export class AppService {
       const bulkinsertions = this.stringUtility(excelArray);
       console.log("bulkinsertions", bulkinsertions);
       console.log(`INSERT INTO admit_card_user_data 
-      (seat_number, gender, dob, school_id, exam_date, exam_center_code, exam_center_name,  exam_time_1, exam_time_2) 
+      (seat_number, student_name, gender, dob, school_id, school_name, exam_date, exam_center_code, exam_center_name,  exam_time_1, exam_time_2, standard) 
       VALUES  ${bulkinsertions}`);
       dbConnect.query<OkPacket>(`INSERT INTO admit_card_user_data 
-      (seat_number, student_name, gender, dob, school_id, exam_date, exam_center_code, exam_center_name,  exam_time_1, exam_time_2) 
+      (seat_number, student_name, gender, dob, school_id, school_name, exam_date, exam_center_code, exam_center_name,  exam_time_1, exam_time_2, standard) 
       VALUES  ${bulkinsertions}`,
       (err, res)=>{
         if(err){
@@ -32,7 +32,6 @@ export class AppService {
         else{
           console.log("Database response:");
           console.log(res);
-          dbConnect.end();
           resolve(res);
         }
       })
@@ -71,8 +70,8 @@ export class AppService {
     let stringarray = [];
     for(let i of input){
       stringarray.push(
-      `('${i["EXAM SEAT NO."]}', '${i["STUDENT NAME"]}', '${i["GENDER"]}', '${i["DATE OF BIRTH"]}', '${i["SCHOOL UDISE"]}', '${i["EXAM DATE"]}',
-      '${i["CENTRE CODE"]}', '${i["EXAM CENTRE NAME"]}', '${i["PAPAR 1"]}', '${i["PAPAR 2"]}')`
+      `('${i["EXAM SEAT NO."]}', '${i["STUDENT NAME"]}', '${i["GENDER"]}', '${i["DATE OF BIRTH"]}', '${i["SCHOOL UDISE"]}', '${i["SCHOOL NAME"]}', '${i["EXAM DATE"]}',
+      '${i["CENTRE CODE"]}', '${i["EXAM CENTRE NAME"]}', '${i["PAPAR 1"]}', '${i["PAPAR 2"]}', '${i["STANDERD"]}')`
       )
     }
     return stringarray.toString();

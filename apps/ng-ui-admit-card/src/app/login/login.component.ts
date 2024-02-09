@@ -30,9 +30,6 @@ export class LoginComponent {
     if(!this.seat_number){
       return alert("Exam seat number is required.")
     }
-    if(!this.dob_text){
-      return alert("Date of birth is required.")
-    }
     
     const data = {
       "dob": this.dob_text,
@@ -48,6 +45,8 @@ export class LoginComponent {
       }
       else{
         this.student_data = res[0];
+        this.student_data.exam_date = this.student_data.exam_date?.replace(/\//g, '-');
+        console.log(this.student_data);
         this.showAdmitCard = true;
       }
     })
@@ -72,7 +71,9 @@ export class LoginComponent {
 
   changeDate(){
     console.log("dob on change ",this.dob, typeof this.dob);
-    const selectedDate = this.dob.split('-');
-    this.dob_text = selectedDate[2].replace(/^0+/,"") + '/' + selectedDate[1].replace(/^0+/,"") + '/' +  selectedDate[0];
+    if(this.dob){
+      const selectedDate = this.dob.split('-');
+      this.dob_text = selectedDate[2].replace(/^0+/,"") + '/' + selectedDate[1].replace(/^0+/,"") + '/' +  selectedDate[0];
+    }
   }
 }

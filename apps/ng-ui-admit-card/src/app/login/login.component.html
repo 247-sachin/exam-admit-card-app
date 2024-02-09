@@ -42,10 +42,10 @@
                     <div class="titleSection">
                         <h4>ऋणानुबंध प्रज्ञाशोध परीक्षा (RTS) 2024</h4>
                         <span>ऋणानुबंध प्रकाशन, तालुका भुदरगड, जिल्हा कोल्हापूर</span> 
-                        <h5>Exam Hall Ticket ({{student_data.standard?.trim()}})</h5>                       
+                        <h5>Exam Hall Ticket ({{student_data.standard?.trim() || '--'}})</h5>                       
                     </div>
                     <div class="scanner titleSection">
-                        <img src="/assets/runanubandh-scan-qr.jpg" alt="" srcset="">
+                        <img src="/assets/runanubandh-scan-qr.png" alt="" srcset="" style="width: 100px;">
                     </div>
                 </div>
                 <hr>
@@ -66,28 +66,28 @@
                             माध्यम: मराठी
                         </div>
                         <div>
-                            परीक्षा केंद्र: <b>{{student_data.exam_center_name}}</b>
+                            परीक्षा केंद्र: <b>{{student_data.exam_center_name || '--'}}</b>
                         </div>
                         <div>
-                            परीक्षा केंद्र क्रमांक: {{student_data.exam_center_code}}
+                            परीक्षा केंद्र क्रमांक: {{student_data.exam_center_code == 'undefined' ? '--' : student_data.school_name}}
                         </div>
                     </div>
                     <!-- Third Row School info -->
                     <div class="d-flex justify-content-between">
                         <div>
-                            इयत्ता: {{student_data.standard}}
+                            इयत्ता: {{student_data.standard || '--'}}
                         </div>
                         <div>
-                            शाळेचे नाव: <small>{{student_data.school_name}}</small>
+                            शाळेचे नाव: <small>{{student_data.school_name == 'undefined' ? '--' : student_data.school_name}}</small>
                         </div>
                         <div>
-                            शाळा क्रमांक: {{student_data.school_id}}
+                            शाळा क्रमांक: {{student_data.school_id == 'undefined' ? '--': student_data.school_id}}
                         </div>
                     </div>
                     <!-- Half columns -->
                     <div class="exam-details">
                         <hr>
-                        <h5>Exam Date: {{student_data.exam_date | date:'fullDate':'d/M/yy'}}</h5>
+                        <h5>Exam Date: {{student_data.exam_date || '--'}}</h5>
                         <hr>
                         <table class="table-bordered admit-card-table">
                             <thead>
@@ -102,7 +102,7 @@
                                         Paper 1
                                     </td>
                                     <td>
-                                        {{student_data.exam_time_1}}
+                                        {{student_data.exam_time_1 || '--'}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -110,7 +110,7 @@
                                         <span *ngIf="student_data.exam_time_2"></span> Paper 2
                                     </td>
                                     <td>
-                                        {{student_data.exam_time_2}}
+                                        {{student_data.exam_time_2  == 'undefined' ? '--': student_data.exam_time_2}} 
                                     </td>
                                 </tr>
                             </tbody>
@@ -120,7 +120,9 @@
                                 President,<br>
                                 Runanubandh Talent Search Exam
                             </div>
-                            <div class="p-2 bg-info"><small>Signature</small></div>
+                            <div class="p-2 bg-info">
+                                <img src="/assets/enhanced-sign-runanuBandh.jpg" alt="" srcset="">
+                            </div>
                         </div>
                     </div>
                     <!-- <div class="photo-section">

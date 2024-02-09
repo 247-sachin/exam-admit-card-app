@@ -48,18 +48,15 @@ export class AppService {
       const adding20 =  '20'+ dobarray[2];
       dobarray[2] = adding20;
       const fullDOB = dobarray.join('/');
+      //console.log(`select * from admit_card_user_data where seat_number = '${studentInfo.seat_number}' and (dob = '${studentInfo.dob}' or dob = '${fullDOB}')`)
 
-      dbConnect.query<admitcard[]>(`select * from admit_card_user_data where seat_number = '${studentInfo.seat_number}' and (dob = '${studentInfo.dob}' or dob = '${fullDOB}')`,(err, res)=>{
+      dbConnect.query<admitcard[]>(`select * from admit_card_user_data where seat_number = '${studentInfo.seat_number}'`,(err, res)=>{
         if(err){
           console.log(err);
-          // dbConnect.end();
           reject(err);
         }
         else{
           console.log("Database response:");
-          console.log(res);
-          // dbConnect.end();
-          // console.log("dbConnect ended");
           resolve(res);
         }
       })
